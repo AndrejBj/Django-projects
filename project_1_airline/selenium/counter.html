@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Counter</title>                                                    <!--javascript kod u nastavku-->
+        <script>
+
+            document.addEventListener('DOMContentLoaded', () =>  {                //DOM je Document Object Model sto je stablo tj html koji se dalje grana u head i body, head se dalje grana u title i script itd (vidi se kroz kod); kad se formira html stranica, DOMContentLoaded punimo DOM nekim contentom 
+                                                                                  //addEventListener je metoda koja na odredjeni dogadjaj nesto radi; u prevodu na document objekat smo primenili addEventListener meetodu koja na dogadjaj DOMContentLoaded realizuje sve u svom telu od reda 7 do 25
+                let counter = 0;                                                  //let je naredba za promenljivu, znaci ovde je promenljiva counter sa vrednoscu 0 
+
+                document.querySelector('#increase').onclick = () => {             //querySelector('#increase') kupi dugme increase koje smo napravili u redu 30 i to kad kliknemo
+                    counter++;                                                    //counter se onda uvecava za 1
+                    document.querySelector('h1').innerHTML = counter;             //i onda hvatamo h1 (koji je postavljen u redu 29 kao 0) gde se taj h1 povecava sa counter-om 
+                };
+
+                document.querySelector('#decrease').onclick = () => {
+                    counter--;
+                    document.querySelector('h1').innerHTML = counter;
+                };
+
+                document.querySelector('#baci_5').onclick = () => {
+                    counter+=5;
+                    document.querySelector('h1').innerHTML = counter;
+                };
+            });
+        </script>
+    </head>
+    <body>
+        <h1>0</h1>
+        <button id="increase">+</button>                                          <!--napravili smo 3 dugmeta increase, decrease i baci_5-->
+        <button id="decrease">-</button>
+        <button id="baci_5">5</button>
+    </body>
+</html>

@@ -1,0 +1,34 @@
+{% extends "flights/layout.html" %}
+{% block body %}
+ 
+<h1>Flight {{flight.id}}</h1>                             <!--flight je prosledjen iz views.py u okviru flights foldera, odnosno to je kljuc iz reda 15 ("flight":flight  <--levi deo)-->
+<ul>
+    <li>Origin: {{flight.origin}}</li>
+    <li>Destination: {{flight.destination}}</li>
+    <li>Duration: {{flight.duration}}</li>
+</ul> 
+
+<h1>Passengers</h1>
+<ul>
+    {% for passenger in passengers %}                     <!--for petlja koja ce prolaziti kroz putnike-->
+        <li>
+            {{passenger}}
+        </li>
+        {%empty%}                                         <!--ako nema putnika donja poruka-->
+        <li>NO Passengers.</li>
+    {%endfor%}
+</ul>
+
+<form action="{% url 'book' flight.id%}" method="post">
+{%csrf_token%}                                                 <!--kad je POST metod koristi se token za obezbedjenje falsifikacije zahteva; csrf = cross site request forgery-->
+<select name="passenger">                                      <!--passenger je string koji se vuce iz fajla views.py iz reda 25 u delu request.POST["passenger"]-->
+    {% for passenger in non_passengers %}                      <!--for petlja prolazi kroz sve koji nisu putnici-->
+    <option value="{{passenger.id}}">                          <!--option ide u okviru select; passenger.id je takodje iz reda 25 u views.py ali to nam se vraca pretvoreno u int-->
+        {{passenger}}
+    </option>
+    {%endfor%}
+</select>
+<input type="submit" value="Posalji">                          <!--dodaje dugme Posalji-->
+</form>
+<a href="{%url 'index' %}">Vrati se na letove</a>              <!--link za vracanje na spisak svih letova kad se udje na pojedinacni let-->
+{% endblock %}
